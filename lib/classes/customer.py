@@ -16,9 +16,10 @@ class Customer:
 
     name = property(get_name, set_name)
         
+     # including "if new_order" ensures that "None" doesn't get added to the list when a new order isn't provided
     def orders(self, new_order=None):
         from classes.order import Order
-        if type(new_order) == Order:
+        if new_order and type(new_order) == Order:
             self.order_list.append(new_order)
             
         return self.order_list
@@ -29,6 +30,3 @@ class Customer:
             self.coffee_list.append(new_coffee)
 
         return self.coffee_list
-    
-    def create_order(self, coffee, price):
-        pass

@@ -15,10 +15,12 @@ class Coffee:
             raise Exception("name must be a string and must have not been previously set")
 
     name = property(get_name, set_name)
-        
+
+    # this function is called every time a new order is created    
+    # including "if new_order" ensures that "None" doesn't get added to the list when a new order isn't provided
     def orders(self, new_order=None):
         from classes.order import Order
-        if type(new_order) == Order:
+        if new_order and type(new_order) == Order:
             self.order_list.append(new_order)
 
         return self.order_list
@@ -34,4 +36,11 @@ class Coffee:
         return len(self.order_list)
     
     def average_price(self):
-        return sum(self.order_list.price) / len(self.order_list)
+        # return sum(self.order_list.price) / len(self.order_list)
+        return sum([order.price for order in self.order_list]) / len(self.order_list)
+    
+        # total = 0
+        # for order in self.order_list:
+        #     total += order.price
+        
+        # return total / len(self.order_list)
